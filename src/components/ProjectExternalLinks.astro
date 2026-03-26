@@ -1,0 +1,86 @@
+---
+import type { ProjectExternalLinks } from "@/data/projects";
+
+interface ProjectLinkIcon {
+  key: keyof ProjectExternalLinks;
+  label: string;
+  icon: string;
+}
+
+interface Props {
+  title: string;
+  externalLinks?: ProjectExternalLinks;
+  containerClass?: string;
+}
+
+const {
+  title,
+  externalLinks,
+  containerClass = "flex flex-wrap items-center gap-2",
+} = Astro.props;
+
+const projectLinkIcons: ProjectLinkIcon[] = [
+  {
+    key: "playStore",
+    label: "Play Store",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M3.609 2.943 14.792 14.126 3.61 21.057A1.5 1.5 0 0 1 3 19.87V4.13c0-.493.238-.955.609-1.187Zm12.34 12.34 2.33 2.331-11.492 7.124 9.162-9.455Zm3.18 1.004 2.947-1.828a1.75 1.75 0 0 0 0-2.972L19.13 9.66l-2.122 2.188 2.122 2.44Zm-.85-7.53L6.79 1.632l9.16 9.454 2.33-2.33Z"/></svg>`,
+  },
+  {
+    key: "appStore",
+    label: "App Store",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.05 13.293 14.222 8.4l1.33-2.304a1 1 0 0 0-1.732-1L12.49 7.4h-.98L10.18 5.096a1 1 0 0 0-1.732 1L9.778 8.4 6.95 13.293H5a1 1 0 1 0 0 2h.795l-1.08 1.87a1 1 0 1 0 1.732 1l1.658-2.87h7.79l1.658 2.87a1 1 0 1 0 1.732-1l-1.08-1.87H19a1 1 0 1 0 0-2h-1.95ZM9.26 13.293 12 8.55l2.739 4.743H9.261Z"/></svg>`,
+  },
+  {
+    key: "website",
+    label: "Website",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.5 4 5.8 4 9s-1.4 6.5-4 9"/><path d="M12 3c-2.6 2.5-4 5.8-4 9s1.4 6.5 4 9"/></svg>`,
+  },
+  {
+    key: "github",
+    label: "GitHub",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.001 2C6.476 2 2 6.474 2 12c0 4.424 2.865 8.178 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.866-.014-1.699-2.782.604-3.369-1.342-3.369-1.342-.455-1.156-1.11-1.465-1.11-1.465-.908-.62.069-.608.069-.608 1.004.071 1.532 1.03 1.532 1.03.892 1.529 2.341 1.087 2.91.831.091-.647.35-1.087.636-1.337-2.221-.253-4.556-1.111-4.556-4.944 0-1.091.39-1.985 1.029-2.685-.103-.253-.446-1.272.098-2.65 0 0 .84-.269 2.75 1.025A9.57 9.57 0 0 1 12 6.845c.85.004 1.705.114 2.504.335 1.909-1.294 2.748-1.025 2.748-1.025.546 1.378.202 2.397.1 2.65.64.7 1.028 1.594 1.028 2.685 0 3.842-2.339 4.688-4.566 4.936.359.309.679.919.679 1.852 0 1.336-.012 2.415-.012 2.744 0 .268.18.579.688.481A10.006 10.006 0 0 0 22 12c0-5.526-4.477-10-9.999-10Z"/></svg>`,
+  },
+];
+
+const availableLinks = projectLinkIcons.flatMap((item) => {
+  const link = externalLinks?.[item.key];
+
+  return link ? [{ ...item, link }] : [];
+});
+
+const lockIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M17 8h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h1V7a5 5 0 1 1 10 0v1Zm-8 0h6V7a3 3 0 1 0-6 0v1Zm3 4a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z"/></svg>`;
+---
+
+{
+  availableLinks.length > 0 && (
+    <div class={containerClass}>
+      {
+        availableLinks.map((item) =>
+          item.link.state === "live" ? (
+            <a
+              href={item.link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${title} ${item.label}`}
+              title={item.label}
+              class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--white-icon-tr)] bg-[#1414149c] text-[var(--white-icon)] transition duration-300 hover:border-[var(--sec)] hover:text-[var(--sec)]"
+            >
+              <span set:html={item.icon} />
+            </a>
+          ) : (
+            <span
+              aria-label={`${title} ${item.label} locked`}
+              title={`${item.label} locked`}
+              class="relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--white-icon-tr)] bg-[#111111] text-[var(--white-icon)]/45"
+            >
+              <span set:html={item.icon} />
+              <span class="absolute -bottom-1 -right-1 inline-flex h-4 w-4 items-center justify-center rounded-full border border-[var(--white-icon-tr)] bg-[#1a1a1a] text-[var(--sec)] shadow-[0_6px_20px_-12px_rgba(164,118,255,0.8)]">
+                <span set:html={lockIcon} />
+              </span>
+            </span>
+          ),
+        )
+      }
+    </div>
+  )
+}

@@ -1,0 +1,300 @@
+---
+import {
+  featuredProjects,
+  labProjects,
+  shippedProjects,
+} from "@/data/projects";
+import ProjectExternalLinks from "@/components/ProjectExternalLinks.astro";
+---
+
+<section
+  id="projects"
+  class="py-12 border-t border-[#ffffff10] text-[var(--white)]"
+>
+  <div class="max-w-5xl mx-auto space-y-10">
+    <div class="max-w-3xl space-y-3">
+      <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">Selected work</h2>
+      <h3 class="text-4xl md:text-5xl font-medium">Featured Work</h3>
+      <p class="text-[var(--white-icon)] text-base md:text-lg">
+        The strongest examples of how I combine product feel with engineering
+        rigor.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {
+        featuredProjects.map((project) => {
+          const isLocked = project.access?.state === "locked";
+          const accessLabel = project.access?.label ?? "Locked";
+
+          return (
+          <article class="group flex h-full flex-col rounded-3xl border border-[var(--white-icon-tr)] bg-[var(--component-bg)] p-6 md:p-7">
+            {project.banner && (
+              <div class="mb-6 overflow-hidden rounded-2xl border border-[var(--white-icon-tr)] bg-[#0d0d0e] shadow-[0_28px_80px_-56px_rgba(164,118,255,0.55)]">
+                <div class="relative aspect-[16/9] overflow-hidden">
+                  <img
+                    src={project.banner}
+                    alt={`${project.title} project banner`}
+                    loading="lazy"
+                    class:list={[
+                      "h-full w-full object-cover object-top transition duration-500 ease-out group-hover:scale-[1.02]",
+                      isLocked && "scale-[1.03] blur-md saturate-[0.7]",
+                    ]}
+                  />
+                  <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#101010cc] via-[#10101022] to-transparent"></div>
+                  {isLocked && (
+                    <>
+                      <div class="pointer-events-none absolute inset-0 bg-[#060607]/45"></div>
+                      <span class="absolute right-4 top-4 inline-flex items-center gap-2 rounded-full border border-[rgba(255,255,255,0.12)] bg-[#0d0d0ecc] px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[var(--white)]">
+                        <span class="inline-flex h-2 w-2 rounded-full bg-[var(--sec)]"></span>
+                        {accessLabel}
+                      </span>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
+
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="rounded-full border border-[var(--white-icon-tr)] px-3 py-1 text-xs uppercase tracking-[0.2em] text-[var(--white-icon)]">
+                {project.type}
+              </span>
+              {isLocked && (
+                <span class="rounded-full border border-[rgba(255,255,255,0.1)] bg-[#121214] px-3 py-1 text-xs uppercase tracking-[0.18em] text-[var(--white)]">
+                  {accessLabel}
+                </span>
+              )}
+            </div>
+
+            <div class="mt-5">
+              <h4 class="text-2xl font-semibold">{project.title}</h4>
+              {isLocked ? (
+                <p class="mt-4 text-[var(--white-icon)] leading-7">
+                  {project.oneLineValue}
+                </p>
+              ) : (
+                <p class="mt-2 text-sm uppercase tracking-[0.18em] text-[var(--sec)]">
+                  {project.role}
+                </p>
+              )}
+            </div>
+
+            {!isLocked && (
+              <div class="mt-5 flex flex-wrap gap-2">
+                {
+                  project.stack.slice(0, 5).map((item) => (
+                    <span class="rounded-full border border-[var(--white-icon-tr)] px-3 py-1 text-xs text-[var(--white-icon)]">
+                      {item}
+                    </span>
+                  ))
+                }
+              </div>
+            )}
+
+            <div class="mt-auto pt-8">
+              <div class="flex items-center justify-between gap-4 border-t border-[var(--white-icon-tr)] pt-5">
+                <div class="flex min-h-[4.75rem] min-w-0 flex-col justify-center space-y-3">
+                  {!isLocked && (
+                    <ProjectExternalLinks
+                      title={project.title}
+                      externalLinks={project.externalLinks}
+                    />
+                  )}
+                  <p class="text-sm text-[var(--white-icon)]">
+                    {isLocked
+                      ? "Protected case study. Enter the project code to unlock the full details."
+                      : "Full case study and delivery details."}
+                  </p>
+                </div>
+                {project.slug && (
+                  <a
+                    href={`/projects/${project.slug}`}
+                    class="inline-flex shrink-0 self-center items-center gap-2 rounded-full border border-[var(--white-icon-tr)] bg-[#1414149c] px-4 py-2 text-sm font-medium text-[var(--white)] transition duration-300 hover:border-[var(--sec)] hover:text-[var(--sec)]"
+                  >
+                    {isLocked ? "Enter code" : "View details"}
+                    <span aria-hidden="true">→</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          </article>
+        )})
+      }
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-2">
+      <div class="space-y-5">
+        <div class="space-y-2">
+          <h4 class="text-2xl font-semibold">More Shipped Work</h4>
+          <p class="text-[var(--white-icon)]">
+            Supporting proof of community product thinking, store delivery, and
+            broader engineering range.
+          </p>
+        </div>
+
+        <div class="grid gap-4">
+          {
+            shippedProjects.map((project) => {
+              const isLocked = project.access?.state === "locked";
+              const accessLabel = project.access?.label ?? "Locked";
+
+              return (
+              <article class="flex h-full flex-col rounded-3xl border border-[var(--white-icon-tr)] bg-[var(--component-bg)] p-5">
+                {project.banner && (
+                  <div class="mb-5 overflow-hidden rounded-2xl border border-[var(--white-icon-tr)] bg-[#0d0d0e] shadow-[0_20px_60px_-48px_rgba(164,118,255,0.45)]">
+                    <div class="relative aspect-[16/9] overflow-hidden">
+                      <img
+                        src={project.banner}
+                        alt={`${project.title} project banner`}
+                        loading="lazy"
+                        class:list={[
+                          "h-full w-full object-cover object-top",
+                          isLocked && "scale-[1.03] blur-md saturate-[0.7]",
+                        ]}
+                      />
+                      <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#101010c7] via-[#10101018] to-transparent"></div>
+                      {isLocked && (
+                        <>
+                          <div class="pointer-events-none absolute inset-0 bg-[#060607]/45"></div>
+                          <span class="absolute right-4 top-4 inline-flex items-center gap-2 rounded-full border border-[rgba(255,255,255,0.12)] bg-[#0d0d0ecc] px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[var(--white)]">
+                            <span class="inline-flex h-2 w-2 rounded-full bg-[var(--sec)]"></span>
+                            {accessLabel}
+                          </span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                )}
+                <div>
+                  <div class="flex flex-wrap items-center gap-3">
+                    <p class="text-sm text-[var(--sec)]">{project.type}</p>
+                    {isLocked && (
+                      <span class="rounded-full border border-[rgba(255,255,255,0.1)] bg-[#121214] px-3 py-1 text-xs uppercase tracking-[0.18em] text-[var(--white)]">
+                        {accessLabel}
+                      </span>
+                    )}
+                  </div>
+                  <div class="mt-3">
+                    <h5 class="text-xl font-semibold">{project.title}</h5>
+                  </div>
+                </div>
+                <p class="mt-4 text-[var(--white)] leading-7">
+                  {project.oneLineValue}
+                </p>
+                {!isLocked && (
+                  <p class="mt-3 text-[var(--white-icon)] leading-7">
+                    {project.whyItMatters}
+                  </p>
+                )}
+                <div class="mt-auto pt-6">
+                  <div class="flex items-center justify-between gap-4 border-t border-[var(--white-icon-tr)] pt-5">
+                    <div class="flex min-h-[4.75rem] min-w-0 flex-col justify-center space-y-3">
+                      {!isLocked && (
+                        <ProjectExternalLinks
+                          title={project.title}
+                          externalLinks={project.externalLinks}
+                        />
+                      )}
+                      <p class="text-sm text-[var(--white-icon)]">
+                        {isLocked
+                          ? "Protected project. Enter the project code to unlock the full details."
+                          : "Supporting project context and delivery details."}
+                      </p>
+                    </div>
+                    {project.slug && (
+                      <a
+                        href={`/projects/${project.slug}`}
+                        class="inline-flex shrink-0 self-center items-center gap-2 rounded-full border border-[var(--white-icon-tr)] bg-[#1414149c] px-4 py-2 text-sm font-medium text-[var(--white)] transition duration-300 hover:border-[var(--sec)] hover:text-[var(--sec)]"
+                      >
+                        {isLocked ? "Enter code" : "View details"}
+                        <span aria-hidden="true">→</span>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </article>
+            )})
+          }
+        </div>
+      </div>
+
+      <div class="space-y-5">
+        <div class="space-y-2">
+          <h4 class="text-2xl font-semibold">Labs / Personal Experiments</h4>
+          <p class="text-[var(--white-icon)]">
+            Small systems that keep my engineering instincts sharp outside
+            client work.
+          </p>
+        </div>
+
+        <div class="grid gap-4">
+          {
+            labProjects.map((project) => {
+              const isLocked = project.access?.state === "locked";
+              const accessLabel = project.access?.label ?? "Locked";
+
+              return (
+              <article class="rounded-3xl border border-[var(--white-icon-tr)] bg-[var(--component-bg)] p-5">
+                {project.banner && (
+                  <div class="mb-5 overflow-hidden rounded-2xl border border-[var(--white-icon-tr)] bg-[#0d0d0e] shadow-[0_20px_60px_-48px_rgba(164,118,255,0.45)]">
+                    <div class="relative aspect-[16/9] overflow-hidden">
+                      <img
+                        src={project.banner}
+                        alt={`${project.title} project banner`}
+                        loading="lazy"
+                        class:list={[
+                          "h-full w-full object-cover object-top",
+                          isLocked && "scale-[1.03] blur-md saturate-[0.7]",
+                        ]}
+                      />
+                      <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#101010c7] via-[#10101018] to-transparent"></div>
+                      {isLocked && (
+                        <>
+                          <div class="pointer-events-none absolute inset-0 bg-[#060607]/45"></div>
+                          <span class="absolute right-4 top-4 inline-flex items-center gap-2 rounded-full border border-[rgba(255,255,255,0.12)] bg-[#0d0d0ecc] px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[var(--white)]">
+                            <span class="inline-flex h-2 w-2 rounded-full bg-[var(--sec)]"></span>
+                            {accessLabel}
+                          </span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                )}
+                <div class="flex flex-wrap items-center gap-3">
+                  <p class="text-sm uppercase tracking-[0.2em] text-[var(--sec)]">
+                    {project.type}
+                  </p>
+                  {isLocked && (
+                    <span class="rounded-full border border-[rgba(255,255,255,0.1)] bg-[#121214] px-3 py-1 text-xs uppercase tracking-[0.18em] text-[var(--white)]">
+                      {accessLabel}
+                    </span>
+                  )}
+                </div>
+                <h5 class="mt-3 text-xl font-semibold">{project.title}</h5>
+                <p class="mt-3 text-[var(--white)] leading-7">
+                  {project.oneLineValue}
+                </p>
+                {!isLocked && (
+                  <>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                      {
+                        project.stack.map((item) => (
+                          <span class="rounded-full border border-[var(--white-icon-tr)] px-3 py-1 text-xs text-[var(--white-icon)]">
+                            {item}
+                          </span>
+                        ))
+                      }
+                    </div>
+                    <div class="mt-5">
+                      <ProjectExternalLinks title={project.title} externalLinks={project.externalLinks} />
+                    </div>
+                  </>
+                )}
+              </article>
+            )})
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

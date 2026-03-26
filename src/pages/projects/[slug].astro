@@ -1,0 +1,452 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ProjectExternalLinks from "@/components/ProjectExternalLinks.astro";
+import { detailProjectPaths } from "@/data/projects";
+
+export function getStaticPaths() {
+  return detailProjectPaths;
+}
+
+const { project } = Astro.props;
+const deliveryHighlights = project.detailBullets ?? project.proofBullets;
+const videoPoster = project.videoDemo?.poster ?? project.banner;
+const isLocked = project.access?.state === "locked";
+const accessLabel = project.access?.label ?? "Locked";
+const accessStorageKey = project.slug
+  ? `project-access:${project.slug}`
+  : "project-access";
+---
+
+<Layout title={project.title} description={project.oneLineValue}>
+  <main class="mx-auto max-w-5xl py-10 text-[var(--white)] md:py-16">
+    <a
+      href="/#projects"
+      class="inline-flex items-center gap-2 text-sm text-[var(--white-icon)] transition duration-300 hover:text-[var(--white)]"
+    >
+      <span aria-hidden="true">←</span>
+      Back to selected work
+    </a>
+
+    {isLocked && (
+      <section
+        class="mt-8 space-y-6"
+        data-project-lock-root
+        data-project-lock-code={project.access?.code ?? ""}
+        data-project-lock-storage-key={accessStorageKey}
+      >
+        {project.banner && (
+          <div class="overflow-hidden rounded-[2rem] border border-[var(--white-icon-tr)] bg-[#0c0c0d] shadow-[0_36px_120px_-72px_rgba(164,118,255,0.55)]">
+            <div class="relative aspect-[16/9] overflow-hidden">
+              <img
+                src={project.banner}
+                alt={`${project.title} project banner`}
+                class="h-full w-full scale-[1.03] object-cover object-top blur-md saturate-[0.7]"
+              />
+              <div class="pointer-events-none absolute inset-0 bg-[#050506]/50"></div>
+              <span class="absolute right-5 top-5 inline-flex items-center gap-2 rounded-full border border-[rgba(255,255,255,0.12)] bg-[#0d0d0ecc] px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[var(--white)]">
+                <span class="inline-flex h-2 w-2 rounded-full bg-[var(--sec)]"></span>
+                {accessLabel}
+              </span>
+            </div>
+          </div>
+        )}
+
+        <section class="rounded-3xl border border-[var(--white-icon-tr)] bg-[var(--component-bg)] p-6 md:p-7">
+          <div class="space-y-4">
+            <span class="inline-flex items-center gap-2 rounded-full border border-[rgba(255,255,255,0.1)] bg-[#121214] px-3 py-1 text-xs uppercase tracking-[0.18em] text-[var(--white)]">
+              {accessLabel}
+            </span>
+            <h1 class="text-4xl font-semibold md:text-5xl">{project.title}</h1>
+            <p class="max-w-3xl text-lg leading-8 text-[var(--white-icon)]">
+              {project.oneLineValue}
+            </p>
+          </div>
+
+          <form
+            class="mt-6 flex flex-col gap-3 sm:flex-row"
+            data-project-lock-form
+          >
+            <input
+              type="password"
+              placeholder="Enter project code"
+              autocomplete="off"
+              class="min-w-0 flex-1 rounded-full border border-[var(--white-icon-tr)] bg-[#111112] px-4 py-3 text-sm text-[var(--white)] outline-none transition duration-300 placeholder:text-[var(--white-icon)] focus:border-[var(--sec)]"
+              data-project-lock-input
+            />
+            <button
+              type="submit"
+              class="inline-flex items-center justify-center rounded-full border border-[var(--white-icon-tr)] bg-[#1414149c] px-5 py-3 text-sm font-medium text-[var(--white)] transition duration-300 hover:border-[var(--sec)] hover:text-[var(--sec)]"
+            >
+              Unlock case study
+            </button>
+          </form>
+
+          <p
+            class="mt-3 hidden text-sm text-[#ffb1ba]"
+            data-project-lock-error
+          >
+            Incorrect code. Try again.
+          </p>
+
+          <p class="mt-4 text-sm leading-7 text-[var(--white-icon)]">
+            The full delivery details, stack, gallery, and links stay hidden
+            until the correct project code is entered.
+          </p>
+        </section>
+      </section>
+    )}
+
+    <section
+      class:list={["mt-8 space-y-8", isLocked && "hidden"]}
+      data-project-locked-content
+    >
+      <div class="space-y-5">
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="rounded-full border border-[var(--white-icon-tr)] px-3 py-1 text-xs uppercase tracking-[0.2em] text-[var(--white-icon)]">
+            {project.type}
+          </span>
+        </div>
+
+        <div class="space-y-3">
+          <h1 class="text-4xl font-semibold md:text-5xl">{project.title}</h1>
+          <p class="text-sm uppercase tracking-[0.18em] text-[var(--sec)]">
+            {project.role}
+          </p>
+          <p class="max-w-4xl text-lg leading-8 text-[var(--white)]">
+            {project.oneLineValue}
+          </p>
+        </div>
+
+        {(project.link || project.externalLinks) && (
+          <div class="flex flex-wrap items-center gap-3">
+            {project.link &&
+              (project.link.href ? (
+                <a
+                  href={project.link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 rounded-full border border-[var(--white-icon-tr)] bg-[#1414149c] px-4 py-2 text-sm text-[var(--white)] transition duration-300 hover:border-[var(--sec)] hover:text-[var(--sec)]"
+                >
+                  Open project link
+                  <span aria-hidden="true">↗</span>
+                </a>
+              ) : (
+                <span class="rounded-full border border-[var(--white-icon-tr)] px-4 py-2 text-sm text-[var(--white-icon)]">
+                  {project.link.label}
+                </span>
+              ))}
+
+            <ProjectExternalLinks
+              title={project.title}
+              externalLinks={project.externalLinks}
+            />
+          </div>
+        )}
+      </div>
+
+      {project.banner && (
+        <div class="overflow-hidden rounded-[2rem] border border-[var(--white-icon-tr)] bg-[#0c0c0d] shadow-[0_36px_120px_-72px_rgba(164,118,255,0.65)]">
+          <div class="relative aspect-[16/9] overflow-hidden">
+            <img
+              src={project.banner}
+              alt={`${project.title} project banner`}
+              class="h-full w-full object-cover object-top"
+            />
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#101010dd] via-[#10101015] to-transparent"></div>
+          </div>
+        </div>
+      )}
+
+      {project.videoDemo && (
+        <section class="rounded-3xl border border-[var(--white-icon-tr)] bg-[var(--component-bg)] p-6 md:p-7">
+          <div class="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p class="text-sm uppercase tracking-[0.22em] text-[var(--sec)]">
+                Video demo
+              </p>
+              <p class="mt-3 max-w-2xl text-sm leading-7 text-[var(--white-icon)]">
+                Hosted externally so the portfolio stays lightweight while project walkthroughs remain easy to update.
+              </p>
+            </div>
+
+            <a
+              href={project.videoDemo.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-full border border-[var(--white-icon-tr)] bg-[#1414149c] px-4 py-2 text-sm text-[var(--white)] transition duration-300 hover:border-[var(--sec)] hover:text-[var(--sec)]"
+            >
+              Open direct video
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+
+          <div class="mt-6 overflow-hidden rounded-[1.75rem] border border-[var(--white-icon-tr)] bg-[#0c0c0d]">
+            <video
+              class="block aspect-video w-full bg-[#090909] object-cover"
+              controls
+              playsinline
+              preload="metadata"
+              poster={videoPoster}
+            >
+              <source src={project.videoDemo.url} />
+              Your browser does not support embedded video playback.
+            </video>
+          </div>
+
+          {project.videoDemo.title && (
+            <p class="mt-4 text-sm text-[var(--white-icon)]">
+              {project.videoDemo.title}
+            </p>
+          )}
+        </section>
+      )}
+
+      <section class="rounded-3xl border border-[var(--white-icon-tr)] bg-[var(--component-bg)] p-6 md:p-7">
+        <p class="text-sm uppercase tracking-[0.22em] text-[var(--sec)]">
+          Tech stack
+        </p>
+        <div class="mt-5 flex flex-wrap gap-2">
+          {
+            project.stack.map((item) => (
+              <span class="rounded-full border border-[var(--white-icon-tr)] px-3 py-1 text-xs text-[var(--white-icon)]">
+                {item}
+              </span>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="grid gap-4 md:grid-cols-2">
+        <article class="rounded-3xl border border-[var(--white-icon-tr)] bg-[var(--component-bg)] p-6">
+          <p class="text-sm uppercase tracking-[0.22em] text-[var(--sec)]">
+            Project overview
+          </p>
+          <p class="mt-4 leading-8 text-[var(--white-icon)]">
+            {project.oneLineValue}
+          </p>
+        </article>
+
+        <article class="rounded-3xl border border-[var(--white-icon-tr)] bg-[var(--component-bg)] p-6">
+          <p class="text-sm uppercase tracking-[0.22em] text-[var(--sec)]">
+            Why it mattered
+          </p>
+          <p class="mt-4 leading-8 text-[var(--white-icon)]">
+            {project.whyItMatters}
+          </p>
+        </article>
+      </section>
+
+      {project.gallery && (
+        <section class="rounded-3xl border border-[var(--white-icon-tr)] bg-[var(--component-bg)] p-6 md:p-7">
+          <div>
+            <p class="text-sm uppercase tracking-[0.22em] text-[var(--sec)]">
+              Gallery
+            </p>
+            <p class="mt-3 max-w-2xl text-sm leading-7 text-[var(--white-icon)]">
+              Focused screenshots that capture interface quality, feature depth, and the product moments that mattered in delivery.
+            </p>
+          </div>
+
+          <div class="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {
+              project.gallery.map((item, index) => (
+                <button
+                  type="button"
+                  class="group relative overflow-hidden rounded-[1.5rem] border border-[var(--white-icon-tr)] bg-[#0c0c0d] text-left transition duration-300 hover:border-[var(--sec)]"
+                  data-gallery-item
+                  data-gallery-src={item.src}
+                  data-gallery-alt={item.alt}
+                  data-gallery-caption={item.caption ?? ""}
+                  aria-label={`Open ${project.title} gallery image ${index + 1}`}
+                >
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    class="aspect-[5/4] h-full w-full object-cover object-top transition duration-300 group-hover:scale-[1.03]"
+                    loading="lazy"
+                  />
+                  <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#050506] via-[#050506cc] to-transparent" style="height:45%"></div>
+                  <span class="absolute left-3 top-3 inline-flex h-7 min-w-7 items-center justify-center rounded-full border border-[var(--white-icon-tr)] bg-[#111112cc] px-2 text-xs font-medium text-[var(--white)]">
+                    {index + 1}
+                  </span>
+                  <div class="absolute inset-x-0 bottom-0 rounded-b-[1.5rem] border-t border-[rgba(255,255,255,0.04)] bg-[#0a0a0bcc] px-4 py-3.5 backdrop-blur-md">
+                    <p class="line-clamp-2 text-sm leading-6 text-[var(--white)]">
+                      {item.caption ?? item.alt}
+                    </p>
+                  </div>
+                </button>
+              ))
+            }
+          </div>
+
+          <div
+            class="fixed inset-0 z-50 hidden items-center justify-center bg-[#050506]/92 px-4 py-6 backdrop-blur-sm"
+            data-gallery-lightbox
+          >
+            <button
+              type="button"
+              class="absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--white-icon-tr)] bg-[#111112] text-[var(--white)] transition duration-300 hover:border-[var(--sec)] hover:text-[var(--sec)]"
+              data-gallery-close
+              aria-label="Close gallery image"
+            >
+              ✕
+            </button>
+
+            <div class="w-full max-w-5xl">
+              <img
+                src=""
+                alt=""
+                class="max-h-[78vh] w-full rounded-[1.75rem] border border-[var(--white-icon-tr)] bg-[#09090a] object-contain"
+                data-gallery-lightbox-image
+              />
+              <p
+                class="mt-4 text-center text-sm leading-6 text-[var(--white-icon)]"
+                data-gallery-lightbox-caption
+              ></p>
+            </div>
+          </div>
+
+          <script is:inline>
+            const galleryLightbox = document.querySelector("[data-gallery-lightbox]");
+
+            if (galleryLightbox instanceof HTMLElement) {
+              const galleryItems = document.querySelectorAll("[data-gallery-item]");
+              const galleryImage = galleryLightbox.querySelector(
+                "[data-gallery-lightbox-image]",
+              );
+              const galleryCaption = galleryLightbox.querySelector(
+                "[data-gallery-lightbox-caption]",
+              );
+              const galleryClose = galleryLightbox.querySelector("[data-gallery-close]");
+
+              const openGalleryImage = (src, alt, caption) => {
+                if (!(galleryImage instanceof HTMLImageElement) || !(galleryCaption instanceof HTMLElement)) {
+                  return;
+                }
+
+                galleryImage.src = src;
+                galleryImage.alt = alt;
+                galleryCaption.textContent = caption;
+                galleryLightbox.classList.remove("hidden");
+                galleryLightbox.classList.add("flex");
+                document.body.style.overflow = "hidden";
+              };
+
+              const closeGalleryImage = () => {
+                if (!(galleryImage instanceof HTMLImageElement) || !(galleryCaption instanceof HTMLElement)) {
+                  return;
+                }
+
+                galleryImage.src = "";
+                galleryImage.alt = "";
+                galleryCaption.textContent = "";
+                galleryLightbox.classList.add("hidden");
+                galleryLightbox.classList.remove("flex");
+                document.body.style.overflow = "";
+              };
+
+              galleryItems.forEach((item) => {
+                if (!(item instanceof HTMLButtonElement)) {
+                  return;
+                }
+
+                item.addEventListener("click", () => {
+                  openGalleryImage(
+                    item.dataset.gallerySrc ?? "",
+                    item.dataset.galleryAlt ?? "",
+                    item.dataset.galleryCaption ?? "",
+                  );
+                });
+              });
+
+              if (galleryClose instanceof HTMLButtonElement) {
+                galleryClose.addEventListener("click", closeGalleryImage);
+              }
+
+              galleryLightbox.addEventListener("click", (event) => {
+                if (event.target === galleryLightbox) {
+                  closeGalleryImage();
+                }
+              });
+
+              document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape" && galleryLightbox.classList.contains("flex")) {
+                  closeGalleryImage();
+                }
+              });
+            }
+          </script>
+        </section>
+      )}
+
+      <section class="rounded-3xl border border-[var(--white-icon-tr)] bg-[var(--component-bg)] p-6 md:p-7">
+        <p class="text-sm uppercase tracking-[0.22em] text-[var(--sec)]">
+          Delivery highlights
+        </p>
+        <ul class="mt-5 grid gap-4">
+          {
+            deliveryHighlights.map((bullet) => (
+              <li class="flex gap-3 rounded-2xl border border-[var(--white-icon-tr)] bg-[#131313] px-4 py-4 text-[var(--white-icon)] leading-7">
+                <span class="pt-[0.35rem] text-[var(--sec)]">•</span>
+                <span>{bullet}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </section>
+  </main>
+
+  {isLocked && (
+    <script is:inline>
+      const lockRoot = document.querySelector("[data-project-lock-root]");
+      const protectedContent = document.querySelector("[data-project-locked-content]");
+
+      if (lockRoot instanceof HTMLElement && protectedContent instanceof HTMLElement) {
+        const code = lockRoot.dataset.projectLockCode ?? "";
+        const storageKey = lockRoot.dataset.projectLockStorageKey ?? "";
+        const form = lockRoot.querySelector("[data-project-lock-form]");
+        const input = lockRoot.querySelector("[data-project-lock-input]");
+        const error = lockRoot.querySelector("[data-project-lock-error]");
+
+        const unlockProject = () => {
+          lockRoot.classList.add("hidden");
+          protectedContent.classList.remove("hidden");
+        };
+
+        const storedCode =
+          storageKey.length > 0 ? window.localStorage.getItem(storageKey) : null;
+
+        if (storedCode === code) {
+          unlockProject();
+        }
+
+        if (
+          form instanceof HTMLFormElement &&
+          input instanceof HTMLInputElement &&
+          error instanceof HTMLElement
+        ) {
+          form.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            if (input.value === code) {
+              if (storageKey.length > 0) {
+                window.localStorage.setItem(storageKey, code);
+              }
+
+              unlockProject();
+              return;
+            }
+
+            error.classList.remove("hidden");
+            input.select();
+          });
+
+          input.addEventListener("input", () => {
+            error.classList.add("hidden");
+          });
+        }
+      }
+    </script>
+  )}
+</Layout>

@@ -1,0 +1,10 @@
+services:
+  portfolio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ${IMAGE_NAME:-astro-portfolio}:${IMAGE_TAG:-latest}
+    container_name: astro-portfolio
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:80"

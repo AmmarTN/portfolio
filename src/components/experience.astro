@@ -1,0 +1,24 @@
+---
+import { portfolio } from "@/data/portfolio";
+import CareerTimeline from "../React/CareerTimeline.tsx";
+---
+
+<section
+  id="experience"
+  class="py-12 border-t border-[var(--white-icon-tr)] text-[var(--white)]"
+>
+  <div class="max-w-5xl mx-auto">
+    <div class="max-w-3xl space-y-3">
+      <h2 class="text-lg text-[var(--sec)] shiny-sec">What I have shipped</h2>
+      <h3 class="text-4xl md:text-5xl font-medium">Experience</h3>
+      <p class="text-[var(--white-icon)] text-base md:text-lg">
+        I work best where product quality and engineering discipline need to
+        move together.
+      </p>
+    </div>
+
+    <div class="mt-8 md:mt-10">
+      <CareerTimeline client:load entries={portfolio.careerTimeline} />
+    </div>
+  </div>
+</section>

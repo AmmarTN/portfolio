@@ -1,0 +1,316 @@
+[
+  {
+    "section": "featured",
+    "slug": "hia-mobile-app",
+    "title": "HIA Mobile App",
+    "type": "Airport mobile product",
+    "role": "Flutter Developer",
+    "oneLineValue": "A passenger and greeter experience for Hamad International Airport spanning navigation, invitation flows, and airport services.",
+    "whyItMatters": "This is the strongest proof of production Flutter engineering under operational complexity, where UX polish, secure flows, device capabilities, and Cisco-based integrations all have to work together.",
+    "proofBullets": [
+      "Implemented Clean Architecture, layered design, BLoC, and code generation to keep the product maintainable at scale.",
+      "Built secure authentication with Google, Apple, email OTP, and careful handling of sensitive app data.",
+      "Delivered Wi-Fi and IoT connectivity, deep linking for flight invitations, and multi-flavor release setups for development, staging, and production."
+    ],
+    "detailBullets": [
+      "Implemented Clean Architecture, layered design, BLoC, and code generation to keep the product maintainable as features expanded.",
+      "Built secure authentication across Google, Apple, and email OTP flows with careful handling of sensitive app data.",
+      "Connected the app to airport Wi-Fi and Cisco-backed IoT capabilities used in the passenger and greeter experience.",
+      "Implemented deep linking for flight invitation flows so users could move directly into contextual airport journeys.",
+      "Managed multi-flavor environments for development, staging, and production to support safer releases and testing.",
+      "Delivered responsive Flutter interfaces across navigation, invitation, and airport service flows without losing product polish."
+    ],
+    "stack": [
+      "Flutter",
+      "Dart",
+      "Clean Architecture",
+      "BLoC",
+      "Flavors",
+      "Cisco SDKs",
+      "Deep linking",
+      "Responsive UI"
+    ],
+    "banner": "/png/projects/hia.png",
+    "gallery": [
+      {
+        "src": "/png/projects/hia.png",
+        "alt": "HIA Mobile App multi-screen preview showing navigation and airport service flows",
+        "caption": "Current multi-screen product preview used as the first gallery asset."
+      },
+      {
+        "src": "/png/projects/hia/hia1.png",
+        "alt": "HIA home dashboard showing live flight details from DOH to JFK, quick links, and the Share Your Journey bottom sheet",
+        "caption": "Home dashboard with live flight info, quick-link actions, and the journey sharing entry point."
+      },
+      {
+        "src": "/png/projects/hia/hia2.png",
+        "alt": "HIA splash screen, passenger and greeter role selection, and sign-in options including Email, Google, and Apple",
+        "caption": "Onboarding flow from splash to role selection and multi-provider authentication."
+      },
+      {
+        "src": "/png/projects/hia/hia3.png",
+        "alt": "HIA email OTP login, passenger account creation form with validation, and real-time greeter tracking onboarding screen",
+        "caption": "Email OTP login, passenger registration with field validation, and greeter tracking introduction."
+      },
+      {
+        "src": "/png/projects/hia/hia5.png",
+        "alt": "HIA add trip form with QR code scanner and arrival milestones timeline showing boarding and take-off steps",
+        "caption": "Trip setup via flight number or QR scan, and the milestone timeline tracking each arrival step."
+      },
+      {
+        "src": "/png/projects/hia/hia6.png",
+        "alt": "HIA profile menu, personal information details, and settings screen with language and notification toggles",
+        "caption": "Profile management with personal info, language switching, and notification preferences."
+      },
+      {
+        "src": "/png/projects/hia/hia7.png",
+        "alt": "HIA greeter list with sharing controls, journey update modal, and airport shops browser featuring luxury brands",
+        "caption": "Greeter management, journey sharing updates, and the in-app airport shops directory."
+      },
+      {
+        "src": "/png/projects/hia/hia8.png",
+        "alt": "HIA share journey request screen with accept and decline options and a journey conflict resolution dialog",
+        "caption": "Greeter-side journey request with accept/decline actions and conflict resolution handling."
+      }
+    ],
+    "link": {
+      "label": "Public product name, private delivery details"
+    },
+    "externalLinks": {
+      "playStore": {
+        "state": "live",
+        "href": "https://play.google.com/store/apps/details?id=com.example.hia"
+      },
+      "appStore": {
+        "state": "live",
+        "href": "https://apps.apple.com/app/id0000000000"
+      },
+      "website": {
+        "state": "live",
+        "href": "https://example.com/hia-mobile-app"
+      },
+      "github": {
+        "state": "live",
+        "href": "https://github.com/example/hia-mobile-app"
+      }
+    }
+  },
+  {
+    "section": "featured",
+    "slug": "mazad-al-jomrok",
+    "title": "Mazad Al Jomrok",
+    "type": "Government marketplace app",
+    "role": "Flutter Developer",
+    "oneLineValue": "A customs auction app built for secure onboarding, bilingual delivery, and production updates without app-store redeploys.",
+    "whyItMatters": "It combines a polished public-facing interface with high-friction engineering work: national auth integration, OTA updates, and Arabic and English delivery that still feels coherent.",
+    "proofBullets": [
+      "Integrated Tawtheeq authentication with separate flows for individuals and companies.",
+      "Used Shorebird to ship over-the-air fixes and feature updates without waiting on store redeployments.",
+      "Designed responsive UI states, motion, and feedback patterns while supporting full English and Arabic localization."
+    ],
+    "detailBullets": [
+      "Integrated Tawtheeq authentication with separate onboarding and verification flows for individuals and companies.",
+      "Used Shorebird to ship over-the-air fixes and feature updates without waiting for new app-store submissions.",
+      "Delivered full Arabic and English localization while keeping the interface coherent across both language contexts.",
+      "Handled responsive UI states, motion, and feedback patterns so the auction flow still felt polished under production constraints.",
+      "Integrated Firebase Cloud Messaging to support auction-related notifications and timely user updates.",
+      "Maintained structured multi-flavor delivery so release management stayed predictable across environments."
+    ],
+    "stack": [
+      "Flutter",
+      "Dart",
+      "BLoC",
+      "Clean Architecture",
+      "Shorebird",
+      "Firebase Cloud Messaging",
+      "Localization",
+      "Multi-flavor builds"
+    ],
+    "banner": "/png/projects/auction2.png",
+    "link": {
+      "label": "Public product name, private delivery details"
+    },
+    "externalLinks": {
+      "playStore": {
+        "state": "locked"
+      },
+      "appStore": {
+        "state": "locked"
+      },
+      "website": {
+        "state": "locked"
+      },
+      "github": {
+        "state": "locked"
+      }
+    }
+  },
+  {
+    "section": "featured",
+    "slug": "smoking-cessation-app",
+    "title": "Smoking Cessation App",
+    "type": "Health product",
+    "role": "Flutter Developer",
+    "oneLineValue": "A smoking cessation app that blends realtime support, health integrations, accessibility, and a responsive cross-platform experience.",
+    "whyItMatters": "This is the clearest example of empathy-driven product engineering, where feature delivery had to stay aligned with usability, accessibility, and healthy day-to-day interaction design.",
+    "proofBullets": [
+      "Built realtime socket-based chat with channels, group conversations, and mentions.",
+      "Integrated Apple Health and Health Connect alongside resilient API handling and fallback behavior.",
+      "Applied BLoC, responsive UI patterns, push notifications, and accessibility semantics across the product."
+    ],
+    "detailBullets": [
+      "Built realtime socket-based chat to support ongoing user engagement inside the cessation experience.",
+      "Implemented channels, group conversations, and mentions so communication features felt native rather than bolted on.",
+      "Integrated both Apple Health and Health Connect to support cross-platform health data workflows.",
+      "Handled API edge cases and fallback behavior so health integrations stayed resilient across different device states.",
+      "Applied BLoC and responsive UI patterns throughout the product to keep the experience consistent across screens and platforms.",
+      "Added push notifications and accessibility semantics so the app remained supportive, usable, and inclusive in day-to-day use."
+    ],
+    "stack": [
+      "Flutter",
+      "Dart",
+      "Sockets",
+      "Push notifications",
+      "Accessibility",
+      "Health SDKs",
+      "Responsive UI",
+      "Azure DevOps"
+    ],
+    "banner": "/png/projects/smoking%202.png",
+    "link": {
+      "label": "Client project"
+    },
+    "externalLinks": {}
+  },
+  {
+    "section": "featured",
+    "slug": "gofood-platform",
+    "title": "GoFood Platform",
+    "type": "Role-based food delivery platform",
+    "role": "Product Engineer",
+    "oneLineValue": "A food delivery and restaurant management platform spanning customer ordering, restaurant operations, and admin workflows.",
+    "whyItMatters": "It shows my broader engineering range beyond mobile, especially around system thinking, multilingual support, payments, and the architecture needed to serve multiple user roles cleanly.",
+    "proofBullets": [
+      "Built customer-facing ordering flows and a full admin dashboard for restaurants, menus, users, orders, and system settings.",
+      "Integrated Sadad payment handling with confirmation and failure paths that fit the product workflow.",
+      "Used Supabase, PostgreSQL, Edge Functions, and i18next to support multilingual and RTL behavior across the platform."
+    ],
+    "detailBullets": [
+      "Built customer-facing ordering flows that covered browsing, ordering, and the full food-delivery journey.",
+      "Delivered a complete admin dashboard for restaurants, menus, users, orders, and platform settings.",
+      "Structured the platform around multiple user roles so operations and customer experiences stayed clearly separated.",
+      "Integrated Sadad payment handling with confirmation, failure, and recovery paths aligned with the product workflow.",
+      "Used Supabase, PostgreSQL, and Edge Functions to support the platform backend and operational flows.",
+      "Implemented multilingual and RTL behavior with i18next so the system worked cleanly across language contexts."
+    ],
+    "stack": [
+      "React",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "Edge Functions",
+      "i18next",
+      "RTL support",
+      "Responsive UI"
+    ],
+    "banner": "/png/projects/gofood.png",
+    "link": {
+      "label": "Project materials available on request"
+    },
+    "externalLinks": {
+      "website": {
+        "state": "locked"
+      },
+      "github": {
+        "state": "locked"
+      }
+    }
+  },
+  {
+    "section": "shipped",
+    "slug": "kickwin",
+    "title": "KickWin",
+    "type": "Community sports app",
+    "role": "Flutter Developer",
+    "oneLineValue": "A social football platform for organizing matches, teams, and tournaments.",
+    "whyItMatters": "Useful proof of community product thinking and cross-platform delivery with a friendly interface and ongoing engagement hooks.",
+    "proofBullets": [
+      "Built event and team management flows for players, organizers, and nearby match discovery.",
+      "Delivered cross-platform support on Android and iOS with store-ready distribution.",
+      "Added notifications and smooth UI behavior to keep the product active between matches."
+    ],
+    "detailBullets": [
+      "Built event and team management flows that helped players and organizers coordinate matches with less friction.",
+      "Supported nearby match discovery, team participation, and tournament-oriented interactions in one social sports product.",
+      "Delivered Android and iOS releases with store-ready packaging and the practical work needed for production submission.",
+      "Integrated OneSignal notifications to keep engagement active between matches, updates, and community activity.",
+      "Worked closely with the product direction so the app stayed friendly, social, and useful rather than feeling like a generic booking flow."
+    ],
+    "stack": ["Flutter", "Dart", "BLoC", "OneSignal", "Figma", "App Store delivery"],
+    "banner": "/png/projects/kickwin.png",
+    "externalLinks": {
+      "playStore": {
+        "state": "locked"
+      },
+      "appStore": {
+        "state": "locked"
+      }
+    }
+  },
+  {
+    "section": "shipped",
+    "slug": "trusti-mobile-pro",
+    "title": "Trusti Mobile & Pro",
+    "type": "Service marketplace apps",
+    "role": "React Native Developer",
+    "oneLineValue": "Two production apps upgraded for modern API flows and secure payment handling.",
+    "whyItMatters": "This is supporting breadth rather than core positioning, showing I can step outside Flutter when the product demands it and still deliver safely.",
+    "proofBullets": [
+      "Integrated PayTabs payments across both customer and pro experiences.",
+      "Refactored data-source layers to support API v2 without breaking delivery velocity.",
+      "Prepared and re-uploaded updated builds through Expo for both major app stores."
+    ],
+    "detailBullets": [
+      "Worked across both the customer and pro apps so the marketplace experience stayed aligned across two production products.",
+      "Integrated PayTabs payments with the care needed for real transaction handling in a service marketplace context.",
+      "Refactored data-source layers to support API v2 while preserving delivery momentum and avoiding unnecessary regressions.",
+      "Prepared updated Expo builds and re-submitted both apps to the major stores as part of the release cycle.",
+      "Used the project as a chance to deliver safely outside Flutter, adapting quickly to the existing React Native codebase."
+    ],
+    "stack": ["React Native", "JavaScript", "Expo", "SDK integration", "App Store delivery"],
+    "banner": "/png/projects/trustit.png",
+    "externalLinks": {}
+  },
+  {
+    "section": "lab",
+    "title": "ZPaste",
+    "type": "Personal experiment",
+    "role": "Builder",
+    "oneLineValue": "A Pastebin-style service for sharing code and text with expiration options and syntax highlighting.",
+    "whyItMatters": "Shows backend and infrastructure curiosity beyond app UIs, especially around hosting and deployment fundamentals.",
+    "proofBullets": [
+      "Designed the product as a self-hosted, containerized service.",
+      "Configured Nginx reverse proxy with SSL and HTTPS delivery.",
+      "Backed storage with MySQL for a simple but reliable setup."
+    ],
+    "stack": ["Docker", "Containers", "Nginx", "SSL", "MySQL", "Self-hosting"],
+    "banner": "/png/projects/zpaste.png",
+    "externalLinks": {}
+  },
+  {
+    "section": "lab",
+    "title": "Navidrome",
+    "type": "Personal experiment",
+    "role": "Builder",
+    "oneLineValue": "A self-hosted music server and streaming setup built around cloud-mounted storage and encrypted access.",
+    "whyItMatters": "Reinforces the part of my engineering practice that enjoys systems, tooling, and useful home-server workflows.",
+    "proofBullets": [
+      "Mounted a cloud-backed library through RClone.",
+      "Enabled encrypted access for a safer self-hosted setup.",
+      "Handled on-the-fly transcoding with FFmpeg."
+    ],
+    "stack": ["Self-hosting", "RClone", "Cloud storage", "FFmpeg", "Encryption"],
+    "banner": "/png/projects/navidrome.png",
+    "externalLinks": {}
+  }
+]
