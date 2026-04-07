@@ -234,58 +234,65 @@ import ProjectExternalLinks from "@/components/ProjectExternalLinks.astro";
               const accessLabel = project.access?.label ?? "Locked";
 
               return (
-              <article class="rounded-3xl border border-[var(--white-icon-tr)] bg-[var(--component-bg)] p-5">
-                {project.banner && (
-                  <div class="mb-5 overflow-hidden rounded-2xl border border-[var(--white-icon-tr)] bg-[#0d0d0e] shadow-[0_20px_60px_-48px_rgba(164,118,255,0.45)]">
-                    <div class="relative aspect-[16/9] overflow-hidden">
-                      <img
-                        src={project.banner}
-                        alt={`${project.title} project banner`}
-                        loading="lazy"
-                        class:list={[
-                          "h-full w-full object-cover object-top",
-                          isLocked && "scale-[1.03] blur-md saturate-[0.7]",
-                        ]}
-                      />
-                      <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#101010c7] via-[#10101018] to-transparent"></div>
+              <article class="rounded-3xl border border-[var(--white-icon-tr)] bg-[var(--component-bg)] px-5 pt-5 pb-2">
+                <div class="flex items-start justify-between gap-4">
+                  <div class="min-w-0 flex-1">
+                    <div class="flex flex-wrap items-center gap-3">
+                      <p class="text-sm uppercase tracking-[0.2em] text-[var(--sec)]">
+                        {project.type}
+                      </p>
                       {isLocked && (
-                        <>
-                          <div class="pointer-events-none absolute inset-0 bg-[#060607]/45"></div>
-                          <span class="absolute right-4 top-4 inline-flex items-center gap-2 rounded-full border border-[rgba(255,255,255,0.12)] bg-[#0d0d0ecc] px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[var(--white)]">
-                            <span class="inline-flex h-2 w-2 rounded-full bg-[var(--sec)]"></span>
-                            {accessLabel}
-                          </span>
-                        </>
+                        <span class="rounded-full border border-[rgba(255,255,255,0.1)] bg-[#121214] px-3 py-1 text-xs uppercase tracking-[0.18em] text-[var(--white)]">
+                          {accessLabel}
+                        </span>
                       )}
                     </div>
+                    <h5 class="mt-3 text-xl font-semibold">{project.title}</h5>
+                    <p class="mt-3 text-[var(--white)] leading-7">
+                      {project.oneLineValue}
+                    </p>
                   </div>
-                )}
-                <div class="flex flex-wrap items-center gap-3">
-                  <p class="text-sm uppercase tracking-[0.2em] text-[var(--sec)]">
-                    {project.type}
-                  </p>
-                  {isLocked && (
-                    <span class="rounded-full border border-[rgba(255,255,255,0.1)] bg-[#121214] px-3 py-1 text-xs uppercase tracking-[0.18em] text-[var(--white)]">
-                      {accessLabel}
-                    </span>
+
+                  {project.banner && (
+                    <div class="mt-1 shrink-0">
+                      <div class="relative h-20 w-20 overflow-hidden rounded-2xl border border-[var(--white-icon-tr)] bg-[#0d0d0e] shadow-[0_20px_60px_-48px_rgba(164,118,255,0.45)] md:h-24 md:w-24">
+                        <img
+                          src={project.banner}
+                          alt={`${project.title} project banner`}
+                          loading="lazy"
+                          class:list={[
+                            "h-full w-full object-cover object-center",
+                            isLocked && "scale-[1.03] blur-md saturate-[0.7]",
+                          ]}
+                        />
+                        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#101010b8] via-[#10101012] to-transparent"></div>
+                        {isLocked && (
+                          <>
+                            <div class="pointer-events-none absolute inset-0 bg-[#060607]/45"></div>
+                            <span class="absolute right-2 top-2 inline-flex h-6 w-6 items-center justify-center rounded-full border border-[rgba(255,255,255,0.12)] bg-[#0d0d0ecc] text-[10px] text-[var(--white)]">
+                              ●
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </div>
                   )}
                 </div>
-                <h5 class="mt-3 text-xl font-semibold">{project.title}</h5>
-                <p class="mt-3 text-[var(--white)] leading-7">
-                  {project.oneLineValue}
-                </p>
+
                 {!isLocked && (
                   <>
-                    <div class="mt-4 flex flex-wrap gap-2">
-                      {
-                        project.stack.map((item) => (
-                          <span class="rounded-full border border-[var(--white-icon-tr)] px-3 py-1 text-xs text-[var(--white-icon)]">
-                            {item}
-                          </span>
-                        ))
-                      }
+                    <div class="mt-4 -mx-1 overflow-x-auto pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                      <div class="inline-flex min-w-max gap-2 px-1">
+                        {
+                          project.stack.map((item) => (
+                            <span class="whitespace-nowrap rounded-full border border-[var(--white-icon-tr)] px-3 py-1 text-xs text-[var(--white-icon)]">
+                              {item}
+                            </span>
+                          ))
+                        }
+                      </div>
                     </div>
-                    <div class="mt-5">
+                    <div class="mt-4">
                       <ProjectExternalLinks title={project.title} externalLinks={project.externalLinks} />
                     </div>
                   </>

@@ -123,6 +123,10 @@ export const portfolio = {
         title: "Reliable shipping",
         body: "Release flows, localization, auth, and integrations treated as core craft.",
       },
+      {
+        title: "Cross-platform delivery",
+        body: "Consistent quality across iOS and Android.",
+      },
     ] satisfies Principle[],
     stats: [
       {
@@ -134,8 +138,8 @@ export const portfolio = {
         label: "Product contexts shipped",
       },
       {
-        value: "4",
-        label: "Featured case studies",
+        value: "8+",
+        label: "Clients",
       },
     ] satisfies AboutStat[],
   },
