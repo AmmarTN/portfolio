@@ -28,3 +28,4 @@ public/media/projects/**/video/*.mp4
 public/media/projects/**/video/*.mov
 public/media/projects/**/video/*.m4v
 public/media/projects/**/video/*.webm
+.docs
