@@ -11,7 +11,7 @@ import ProjectExternalLinks from "@/components/ProjectExternalLinks.astro";
   id="projects"
   class="py-12 border-t border-[#ffffff10] text-[var(--white)]"
 >
-  <div class="max-w-5xl mx-auto space-y-10">
+  <div class="mx-auto max-w-6xl space-y-10">
     <div class="max-w-3xl space-y-3">
       <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">Selected work</h2>
       <h3 class="text-4xl md:text-5xl font-medium">Featured Work</h3>
@@ -21,16 +21,16 @@ import ProjectExternalLinks from "@/components/ProjectExternalLinks.astro";
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
       {
         featuredProjects.map((project) => {
           const isLocked = project.access?.state === "locked";
           const accessLabel = project.access?.label ?? "Locked";
 
           return (
-          <article class="group flex h-full flex-col rounded-3xl border border-[var(--white-icon-tr)] bg-[var(--component-bg)] p-6 md:p-7">
+          <article class="group flex h-full flex-col rounded-3xl border border-[var(--white-icon-tr)] bg-[var(--component-bg)] p-6 md:p-7 xl:p-5">
             {project.banner && (
-              <div class="mb-6 overflow-hidden rounded-2xl border border-[var(--white-icon-tr)] bg-[#0d0d0e] shadow-[0_28px_80px_-56px_rgba(164,118,255,0.55)]">
+              <div class="mb-5 overflow-hidden rounded-2xl border border-[var(--white-icon-tr)] bg-[#0d0d0e] shadow-[0_28px_80px_-56px_rgba(164,118,255,0.55)]">
                 <div class="relative aspect-[16/9] overflow-hidden">
                   <img
                     src={project.banner}
@@ -55,35 +55,37 @@ import ProjectExternalLinks from "@/components/ProjectExternalLinks.astro";
               </div>
             )}
 
-            <div class="flex flex-wrap items-center gap-3">
-              <span class="rounded-full border border-[var(--white-icon-tr)] px-3 py-1 text-xs uppercase tracking-[0.2em] text-[var(--white-icon)]">
+            <div class="flex flex-wrap items-center gap-2.5">
+              <span class="rounded-full border border-[var(--white-icon-tr)] px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-[var(--white-icon)]">
                 {project.type}
               </span>
               {isLocked && (
-                <span class="rounded-full border border-[rgba(255,255,255,0.1)] bg-[#121214] px-3 py-1 text-xs uppercase tracking-[0.18em] text-[var(--white)]">
+                <span class="rounded-full border border-[rgba(255,255,255,0.1)] bg-[#121214] px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-[var(--white)]">
                   {accessLabel}
                 </span>
               )}
             </div>
 
-            <div class="mt-5">
-              <h4 class="text-2xl font-semibold">{project.title}</h4>
+            <div class="mt-4">
+              <h4 class="text-2xl font-semibold leading-tight xl:text-[1.4rem]">
+                {project.title}
+              </h4>
               {isLocked ? (
-                <p class="mt-4 text-[var(--white-icon)] leading-7">
+                <p class="mt-3 text-sm leading-6 text-[var(--white-icon)]">
                   {project.oneLineValue}
                 </p>
               ) : (
-                <p class="mt-2 text-sm uppercase tracking-[0.18em] text-[var(--sec)]">
+                <p class="mt-2 text-xs uppercase tracking-[0.16em] text-[var(--sec)]">
                   {project.role}
                 </p>
               )}
             </div>
 
             {!isLocked && (
-              <div class="mt-5 flex flex-wrap gap-2">
+              <div class="mt-4 flex flex-wrap gap-2">
                 {
-                  project.stack.slice(0, 5).map((item) => (
-                    <span class="rounded-full border border-[var(--white-icon-tr)] px-3 py-1 text-xs text-[var(--white-icon)]">
+                  project.stack.slice(0, 4).map((item) => (
+                    <span class="rounded-full border border-[var(--white-icon-tr)] px-2.5 py-1 text-[11px] text-[var(--white-icon)]">
                       {item}
                     </span>
                   ))
@@ -91,16 +93,17 @@ import ProjectExternalLinks from "@/components/ProjectExternalLinks.astro";
               </div>
             )}
 
-            <div class="mt-auto pt-8">
-              <div class="flex items-center justify-between gap-4 border-t border-[var(--white-icon-tr)] pt-5">
+            <div class="mt-auto pt-7">
+              <div class="flex flex-col gap-4 border-t border-[var(--white-icon-tr)] pt-5 sm:flex-row sm:items-center sm:justify-between xl:flex-col xl:items-start xl:justify-start">
                 <div class="flex min-h-[4.75rem] min-w-0 flex-col justify-center space-y-3">
                   {!isLocked && (
                     <ProjectExternalLinks
                       title={project.title}
                       externalLinks={project.externalLinks}
+                      containerClass="flex flex-wrap items-center gap-2"
                     />
                   )}
-                  <p class="text-sm text-[var(--white-icon)]">
+                  <p class="text-sm leading-6 text-[var(--white-icon)]">
                     {isLocked
                       ? "Protected case study. Enter the project code to unlock the full details."
                       : "Full case study and delivery details."}
@@ -109,7 +112,7 @@ import ProjectExternalLinks from "@/components/ProjectExternalLinks.astro";
                 {project.slug && (
                   <a
                     href={`/projects/${project.slug}`}
-                    class="inline-flex shrink-0 self-center items-center gap-2 rounded-full border border-[var(--white-icon-tr)] bg-[#1414149c] px-4 py-2 text-sm font-medium text-[var(--white)] transition duration-300 hover:border-[var(--sec)] hover:text-[var(--sec)]"
+                    class="inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-[var(--white-icon-tr)] bg-[#1414149c] px-4 py-2 text-sm font-medium text-[var(--white)] transition duration-300 hover:border-[var(--sec)] hover:text-[var(--sec)]"
                   >
                     {isLocked ? "Enter code" : "View details"}
                     <span aria-hidden="true">→</span>
